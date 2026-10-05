@@ -1,29 +1,13 @@
+using CalculateurAge.ViewModels;
+
 namespace CalculateurAge.Views;
 
-// Relie le paramètre "nom" de l'URL à la propriété Nom.
-[QueryProperty(nameof(Nom), "nom")]
-[QueryProperty(nameof(Age), "age")]
+// Plus de QueryProperty : la page lit le même ViewModel que MainPage.
 public partial class ResultatPage : ContentPage
 {
-    // Ces propriétés sont remplies par la navigation,
-    // APRÈS le constructeur.
-    public string Nom { get; set; }
-    public string Age { get; set; }
-
-    // Construit l'arbre visuel décrit par le XAML.
-    public ResultatPage()
+    public ResultatPage(CalculateurViewModel vm)
     {
         InitializeComponent();
+        BindingContext = vm;
     }
-
-    // Appelée à CHAQUE affichage de la page.
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        lblMessage.Text = $"{Nom}, vous avez {Age} ans";
-    }
-
-    // ".." = revenir à la page précédente.
-    private async void OnRetourClicked(object sender, EventArgs e)
-        => await Shell.Current.GoToAsync("..");
 }

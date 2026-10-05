@@ -10,10 +10,32 @@
                    Placeholder="Votre nom"/>
             <Label Text="Date de naissance" FontSize="16"/>
             <DatePicker Date="{Binding DateNaissance}"/>
-            <Button Text="Calculer"
-                    Command="{Binding CalculerCommand}"/>
-            <Label Text="{Binding Resultat}" FontSize="20"
-                   IsVisible="{Binding ResultatVisible}"/>
+
+            <Label Text="{Binding Erreur}" TextColor="Red"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0" Text="Calculer"
+                        Command="{Binding CalculerCommand}"/>
+                <Button Grid.Column="1" Text="Effacer"
+                        Command="{Binding EffacerCommand}"/>
+            </Grid>
+
+            <VerticalStackLayout IsVisible="{Binding ResultatVisible}" Spacing="8">
+                <Label Text="{Binding Resultat}" FontSize="20"/>
+                <Label Text="{Binding Statut}" FontAttributes="Bold"/>
+                <Label Text="{Binding ProchainAnniversaire}"/>
+                <Button Text="Voir le détail"
+                        Command="{Binding VoirDetailCommand}"/>
+            </VerticalStackLayout>
+
+            <Label Text="Historique" FontSize="16" FontAttributes="Bold" Margin="0,12,0,0"/>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Historique}" Spacing="4">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
